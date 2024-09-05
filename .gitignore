@@ -1,23 +1,48 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
+node_modules/
+.pnp
 .pnp.js
 
-# testing
-/coverage
+# Optional npm cache directory
+.npm
 
-# production
-/build
+# Parcel-bundler cache
+.cache
 
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Next.js build output
+.next
 
-npm-debug.log*
+# Nuxt.js build output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# Temporary directories and files
+temp/
+*.tmp
+*.log
 yarn-debug.log*
 yarn-error.log*
+
+# IDEs and editors
+.vscode/
+.idea/
+.DS_Store
+
+# Tailwind output
+**/tailwind.css
+
