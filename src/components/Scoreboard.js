@@ -1,0 +1,1 @@
+// component will simply display the current score and handle the game reset logic.

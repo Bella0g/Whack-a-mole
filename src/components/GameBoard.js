@@ -1,3 +1,5 @@
+// will manage the grid of moles and the game logic like randomly showing moles.
+
 import React from 'react';
 
 const GameBoard = () => {

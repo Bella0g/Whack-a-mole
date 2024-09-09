@@ -1,0 +1,1 @@
+// will display whether the mole is visible or not and handle the click event.
