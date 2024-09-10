@@ -18,12 +18,10 @@ const GamePage = () => {
       <header className="text-center text-white mb-4">
         <h1 className="text-4xl font-bold">Whack-a-Mole Game</h1>
       </header>
-      <div className=" w-1/6 flex py-2 text-left mb-4">
-        <div className="flex text-white text-2xl px-4">
-          <CountDown />
-          <Points score={score} />
-          <PlayButton />
-        </div>
+      <div className="grid grid-cols-3 items-center text-white text-1xl font-bold py-2 mb-1">
+        <CountDown />
+        <Points score={score} />
+        <PlayButton />
       </div>
       <GameBoard incrementScore={incrementScore} />{" "}
       {/*Pass the function to increment the score to GameBoard*/}
