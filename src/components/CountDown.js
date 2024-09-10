@@ -1,25 +1,22 @@
-//Component for counting down from 60 to 0 
+import React, { useEffect } from "react";
 
-import React, { useState, useEffect } from 'react';
+const CountDown = ({ count, setCount, isPlaying }) => {
+  useEffect(() => {
 
-const CountDown = () => {
-    const [count, setCount] = useState(60);
+    if (!isPlaying || count === 0) return;
 
-    useEffect(() => {
-        if (count === 0) return;
+    const timer = setInterval(() => {
+      setCount((prevCount) => prevCount - 1);
+    }, 1000);
 
-        const timer = setInterval(() => {
-            setCount(prevCount => prevCount -1);
-        }, 1000);
+    return () => clearInterval(timer);
+  }, [isPlaying, count, setCount]);
 
-        return () => clearInterval(timer);
-    }, [count]);
-
-    return (
-        <div>
-            <h2 className="px-4">Time left: {count}</h2>
-        </div>
-    );
-  };
+  return (
+    <div>
+      <h2 className="px-4">Time left: {count}</h2>
+    </div>
+  );
+};
 
 export default CountDown;
