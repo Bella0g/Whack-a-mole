@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Points = ({score}) => {
+const Points = ({ score }) => {
     return (
-<h1>Points: {score}</h1>
+        <h1>Points: {score}</h1>
     );
-  };
+};
 
 export default Points;
