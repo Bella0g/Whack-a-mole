@@ -12,7 +12,7 @@ const CountDown = ({ count, setCount, isPlaying }) => {
     }, [isPlaying, count, setCount]);
 
     return (
-        <div>
+        <div className="text-xl">
             <h2 className="px-4">Time left: {count}</h2>
         </div>
     );

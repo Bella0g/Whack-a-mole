@@ -31,11 +31,11 @@ const GamePage = () => {
     return (
         <div className="w-full h-screen flex flex-col items-center justify-center">
             <header className="text-center text-white mb-4">
-                <h1 className="text-4xl font-bold">Whack-a-Mole Game</h1>
+                <h1 className="text-5xl font-bold">Whack-a-Mole Game</h1>
             </header>
 
 
-            <div className="grid grid-cols-3 items-center text-white text-1xl font-bold py-2 mb-1">
+            <div className="grid grid-cols-3 items-center text-white text-1xl font-bold py-2 mb-6">
                 <CountDown count={count} setCount={setCount} isPlaying={isPlaying} />
 
                 <Points score={score} />
