@@ -3,49 +3,71 @@ import GameBoard from "../components/GameBoard";
 import CountDown from "../components/CountDown";
 import Points from "../components/Points";
 import PlayButton from "../components/PlayButton";
+import Login from "../components/Login";
 
 const GamePage = () => {
-    const [score, setScore] = useState(0);
-    const [count, setCount] = useState(60);
-    const [isPlaying, setIsPlaying] = useState(false);
+  const [score, setScore] = useState(0);
+  const [count, setCount] = useState(60);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("");
 
+  // update username when submitted
+  const handleSubmit = (input) => {
+    setUserName(input);
+  };
 
-    const incrementScore = () => {
-        if (isPlaying) {
-            setScore((prevScore) => prevScore + 1);
-        }
-    };
+  // toggle state to show game when username is submitted
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
 
-    const startGame = () => {
-        setScore(0);
-        setCount(60);
-        setIsPlaying(true);
-    };
+  const incrementScore = () => {
+    if (isPlaying) {
+      setScore((prevScore) => prevScore + 1);
+    }
+  };
 
-    useEffect(() => {
-        if (count === 0) {
-            setIsPlaying(false);
-        }
-    }, [count]);
+  const startGame = () => {
+    setScore(0);
+    setCount(60);
+    setIsPlaying(true);
+  };
 
-    return (
-        <div className="w-full h-screen flex flex-col items-center justify-center">
-            <header className="text-center text-white mb-4">
-                <h1 className="text-5xl font-bold">Whack-a-Mole Game</h1>
-            </header>
+  useEffect(() => {
+    if (count === 0) {
+      setIsPlaying(false);
+    }
+  }, [count]);
 
+  return (
+    <div className="w-full h-screen flex flex-col items-center justify-center">
+      <header className="text-center text-white mb-4">
+        <h1 className="text-5xl font-bold">Whack-a-Mole Game</h1>
+      </header>
 
-            <div className="grid grid-cols-3 items-center text-white text-1xl font-bold py-2 mb-6">
-                <CountDown count={count} setCount={setCount} isPlaying={isPlaying} />
+      {!isLoggedIn ? (
+        <Login handleLogin={handleLogin} onNameSubmitted={handleSubmit} />
+      ) : (
+        <>
+          <div className="text-slate-50 text-right w-3/4 py-2 lg:w-1/3">
+            <h3>Logged in: {userName}</h3>
+          </div>
 
-                <Points score={score} />
-
-                <PlayButton startGame={startGame} isPlaying={isPlaying} />
-            </div>
-
-            <GameBoard incrementScore={incrementScore} />
-        </div>
-    );
+          <div className="grid grid-cols-3 items-center text-white text-1xl font-bold py-2 mb-6">
+            <CountDown
+              count={count}
+              setCount={setCount}
+              isPlaying={isPlaying}
+            />
+            <Points score={score} />
+            <PlayButton startGame={startGame} isPlaying={isPlaying} />
+          </div>
+          <GameBoard incrementScore={incrementScore} />
+        </>
+      )}
+    </div>
+  );
 };
 
 export default GamePage;
