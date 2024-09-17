@@ -26,7 +26,7 @@ const GameBoard = () => {
 
     useEffect(() => {
         showRandomMoles(); // Call to show moles
-        const intervalId = setInterval(showRandomMoles, 2000); // Show moles every two seconds
+        const intervalId = setInterval(showRandomMoles, 4000); // Show moles every two seconds
 
         return () => clearInterval(intervalId); // Returns cleanup function to stop the interval when the component unmounts
     }, []);
