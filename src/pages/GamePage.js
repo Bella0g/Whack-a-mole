@@ -43,7 +43,7 @@ const GamePage = () => {
                 <PlayButton startGame={startGame} isPlaying={isPlaying} />
             </div>
 
-            <GameBoard incrementScore={incrementScore} />
+            <GameBoard incrementScore={incrementScore} isPlaying={isPlaying} />
         </div>
     );
 };
