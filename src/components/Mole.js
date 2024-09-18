@@ -4,14 +4,10 @@ import React from "react";
 import moleImage from "../assets/mole-cartoon.png";
 
 const Mole = ({ isVisible }) => {
+  if (!isVisible) return null; // Don't render anything if not visible
+
   return (
-       // Container div with dynamic opacity based on isVisible prop
-    <div
-      className={`flex items-center justify-center transition-opacity duration-600 ${
-        isVisible ? "opacity-100" : "opacity-0"
-      } w-full h-full`}
-    >
-       {/* Mole image that's always rendered but may be invisible */}
+    <div className="flex items-center justify-center w-full h-full transition-opacity duration-300">
       <img src={moleImage} alt="Mole" className="w-18 h-18" />
     </div>
   );
