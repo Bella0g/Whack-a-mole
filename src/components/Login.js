@@ -25,16 +25,13 @@ function Login({ handleLogin, onNameSubmitted }) {
   return (
     <>
       <div className="absolute inset-0 z-0"></div>
-      <div className="px-3 py-5 my-5 relative rounded-xl shadow-lg drop-shadow-2xl bg-slate-800">
-        <div className="p-5 flex flex-col bg-slate-900 rounded-md border border-slate-700">
+      <div className="px-3 py-5 my-5 relative rounded-xl shadow-lg drop-shadow-2xl bg-slate-800 border border-slate-400/80">
+        <div className="p-5 flex flex-col">
           <div className="max-w-64">
             <img src={moleImage} alt="mole" />
           </div>
           {!submittedName ? (
             <>
-              <h3 className="text-slate-50 text-lg font-bold tracking-wide">
-                LOGIN
-              </h3>
               <form
                 className="flex flex-col text-left my-5"
                 onSubmit={handleSubmit}
@@ -46,14 +43,14 @@ function Login({ handleLogin, onNameSubmitted }) {
                       type="text"
                       value={userName ?? ""}
                       onChange={handleChange}
-                      className="block px-3 p-2 w-full text-sm text-slate-200 bg-slate-700/50 rounded-lg border-1 border-gray-300 appearance-none  focus:bg-slate-700/25 focus:outline-none focus:ring-0 peer focus:outline-b-2"
+                      className="block px-3 p-2 w-full text-sm text-slate-200 bg-slate-700 rounded-lg appearance-none  focus:bg-slate-700/25 focus:outline-none focus:ring-0 peer"
                       placeholder=" "
                     />
                     <label
                       for="floating_outlined"
-                      class="absolute text-sm px-1 text-slate-200 duration-300 transform -translate-y-2 scale-85 top-1 z-11 origin-[0] peer-focus:text-slate-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-0.5 peer-focus:scale-85 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/2 rtl:peer-focus:left-auto start-1"
+                      className="absolute text-sm px-1 text-slate-200 duration-300 transform -translate-y-2 scale-85 top-1 z-11 origin-[0] peer-focus:text-slate-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-0.5 peer-focus:scale-85 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/2 rtl:peer-focus:left-auto start-1"
                     >
-                      Username
+                      Enter name
                     </label>
                   </div>
                 </div>
@@ -61,7 +58,7 @@ function Login({ handleLogin, onNameSubmitted }) {
                 <div className="flex w-full text-center">
                   <button
                     type="submit"
-                    className={`w-full justify-center flex px-2 my-2 rounded-md py-1 text-slate-50 bg-purple-600 outline outline-1 outline-offset-2 outline-teal-300 shadow-lg hover:bg-purple-700 transition ease-in-out delay-150 hover:-translate-1 hover:scale-105 duration-300
+                    className={`w-full justify-center flex px-2 my-2 rounded-md py-1 text-slate-50 bg-purple-600 outline outline-1 outline-offset-2 outline-cyan-400 shadow-lg hover:bg-purple-700 transition ease-in-out delay-150 hover:-translate-1 hover:scale-105 duration-300
                     ${
                       isDisabled
                         ? "bg-gray-700 cursor-not-allowed opacity-50"
@@ -69,7 +66,7 @@ function Login({ handleLogin, onNameSubmitted }) {
                     }`}
                     disabled={isDisabled}
                   >
-                    Login
+                    Play!
                   </button>
                 </div>
               </form>
