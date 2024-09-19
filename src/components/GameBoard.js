@@ -6,7 +6,6 @@ import Mole from "./Mole";
 const GameBoard = ({ incrementScore, isPlaying }) => {
   const [molePositions, setMolePositions] = useState(Array(25).fill(false));
 
-  // Function to show up to 3 moles at once
   const showRandomMoles = () => {
     if (!isPlaying) {
       setMolePositions(Array(25).fill(false));
@@ -16,16 +15,31 @@ const GameBoard = ({ incrementScore, isPlaying }) => {
     const newMolePositions = Array(25).fill(false);
     const numberOfMoles = Math.floor(Math.random() * 3) + 1;
 
-    // Generate unique random indices for moles
+    // Generate unique random indices for the moles
     const indices = new Set();
     while (indices.size < numberOfMoles) {
       indices.add(Math.floor(Math.random() * 25));
     }
 
-    // Set moles to visible (true) at the randomly selected positions
-    indices.forEach((index) => (newMolePositions[index] = true));
+      // Set moles to visible (true) at the randomly selected positions
+    indices.forEach((index) => {
+ 
+      newMolePositions[index] = true;
+      
+      // Generate a random time for how long the mole stays visible (between 1 and 4 seconds)
+      const randomTime = Math.random() * 3000 + 1000; 
 
-    setMolePositions(newMolePositions);
+      // Hide the mole after the random time
+      setTimeout(() => {
+        setMolePositions((prevPositions) => {
+          const updatedPositions = [...prevPositions];
+          updatedPositions[index] = false;
+          return updatedPositions;
+        });
+      }, randomTime);
+    });
+
+    setMolePositions(newMolePositions); // Update the mole positions
   };
 
   useEffect(() => {
