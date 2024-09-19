@@ -2,6 +2,15 @@ import React from "react";
 import { useState } from "react";
 import moleImage from "../assets/mole-cartoon.png";
 
+/**
+ *  Login component receiving user input
+ *
+ * @component
+ * @param {Object} props - component props
+ * @param {function} props.handleLogin - function executed when user clicks play button
+ * @param {function} props.onNameSubmitted - function executed when username is submitted
+ * @returns {React.ReactElement} - username input field and button going to gamepage
+ */
 function Login({ handleLogin, onNameSubmitted }) {
   // store user input
   const [userName, setUserName] = useState("");
@@ -10,15 +19,23 @@ function Login({ handleLogin, onNameSubmitted }) {
   // button state
   const [isDisabled, setIsDisabled] = useState(true);
 
+  // function to store username input
   const handleChange = (e) => {
+    // store input changes
     setUserName(e.target.value);
+    // set button state
     setIsDisabled(false);
   };
 
+  // function to store entire username input
   const handleSubmit = (e) => {
+    // prevent submitting form
     e.preventDefault();
+    // store entire input
     setSubmittedName(userName);
+    // call handleLogin function
     handleLogin(true);
+    // call onNameSubmitted function
     onNameSubmitted(userName);
   };
 
@@ -30,6 +47,7 @@ function Login({ handleLogin, onNameSubmitted }) {
           <div className="max-w-64">
             <img src={moleImage} alt="mole" />
           </div>
+          {/* if no name is submitted */}
           {!submittedName ? (
             <>
               <form
