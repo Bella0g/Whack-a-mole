@@ -13,7 +13,7 @@ const GameBoard = ({ incrementScore, isPlaying }) => {
     }
 
     const newMolePositions = Array(25).fill(false);
-    const numberOfMoles = Math.floor(Math.random() * 3) + 1; // Random number of moles (1-3)
+    const numberOfMoles = Math.floor(Math.random() * 3) + 1;
 
     // Generate unique random indices for the moles
     const indices = new Set();
@@ -21,12 +21,13 @@ const GameBoard = ({ incrementScore, isPlaying }) => {
       indices.add(Math.floor(Math.random() * 25));
     }
 
+      // Set moles to visible (true) at the randomly selected positions
     indices.forEach((index) => {
-      // Show mole at the chosen index
+ 
       newMolePositions[index] = true;
       
       // Generate a random time for how long the mole stays visible (between 1 and 4 seconds)
-      const randomTime = Math.random() * 3000 + 1000; // Time in milliseconds (1000ms to 4000ms)
+      const randomTime = Math.random() * 3000 + 1000; 
 
       // Hide the mole after the random time
       setTimeout(() => {
