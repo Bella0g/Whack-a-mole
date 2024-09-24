@@ -2,9 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import Mole from "./Mole";
+import ReactionTime from "./ReactionTime";
 
 const GameBoard = ({ incrementScore, isPlaying }) => {
-  const [molePositions, setMolePositions] = useState(Array(25).fill(false));
+  const [molePositions, setMolePositions] = useState(
+    Array(25).fill({ visible: false, appearanceTime: null })
+  );
+
+  const [reactionTimes, setReactionTimes] = useState([]); // store reaction times
 
   const showRandomMoles = () => {
     if (!isPlaying) {
@@ -21,13 +26,15 @@ const GameBoard = ({ incrementScore, isPlaying }) => {
       indices.add(Math.floor(Math.random() * 25));
     }
 
-      // Set moles to visible (true) at the randomly selected positions
+    // Set moles to visible (true) at the randomly selected positions
     indices.forEach((index) => {
- 
-      newMolePositions[index] = true;
-      
+      newMolePositions[index] = {
+        visible: true,
+        // set mole appearance time
+        appearanceTime: Date.now(),
+      };
       // Generate a random time for how long the mole stays visible (between 1 and 4 seconds)
-      const randomTime = Math.random() * 3000 + 1000; 
+      const randomTime = Math.random() * 3000 + 1000;
 
       // Hide the mole after the random time
       setTimeout(() => {
@@ -56,6 +63,14 @@ const GameBoard = ({ incrementScore, isPlaying }) => {
   const handleMoleClick = (index) => {
     if (isPlaying && molePositions[index]) {
       incrementScore();
+      // get current time
+      const currentTime = Date.now();
+      // calculate individual mole reactiontime
+      const moleReactionTime =
+        currentTime - molePositions[index].appearanceTime;
+      // set reaction time
+      setReactionTimes((prevTimes) => [...prevTimes, moleReactionTime]);
+
       const newMolePositions = [...molePositions];
       newMolePositions[index] = false;
       setMolePositions(newMolePositions);
@@ -63,17 +78,24 @@ const GameBoard = ({ incrementScore, isPlaying }) => {
   };
 
   return (
-    <div className="grid grid-cols-5 gap-4 w-[500px] h-[500px]">
-    {molePositions.map((isVisible, index) => (
-      <div
-        key={index}
-        onClick={() => handleMoleClick(index)}
-        className="bg-amber-800 rounded-md flex items-center justify-center w-24 h-24"
-      >
-        <Mole isVisible={isVisible && isPlaying} />
+    <>
+      {reactionTimes.length > 0 && (
+        <div>
+          <ReactionTime reactionTimes={reactionTimes} />
+        </div>
+      )}{" "}
+      <div className="grid grid-cols-5 gap-4 w-[500px] h-[500px]">
+        {molePositions.map((isVisible, index) => (
+          <div
+            key={index}
+            onClick={() => handleMoleClick(index)}
+            className="bg-amber-800 rounded-md flex items-center justify-center w-24 h-24"
+          >
+            <Mole isVisible={isVisible && isPlaying} />
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
+    </>
   );
 };
 
