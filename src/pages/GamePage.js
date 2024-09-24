@@ -4,6 +4,7 @@ import CountDown from "../components/CountDown";
 import Points from "../components/Points";
 import PlayButton from "../components/PlayButton";
 import Login from "../components/Login";
+import {SaveResult} from "../components/Api";
 
 const GamePage = () => {
   const [score, setScore] = useState(0);
@@ -11,6 +12,7 @@ const GamePage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
+
 
   // update username when submitted
   const handleSubmit = (input) => {
@@ -34,9 +36,18 @@ const GamePage = () => {
     setIsPlaying(true);
   };
 
+  // Function to save gameresult for a user and calls function SaveResult(api) to save to the database.
+  const saveGameResult = async () => {
+    if (userName && score > 0) {
+      await SaveResult(userName, score);
+    }
+  };
+
   useEffect(() => {
     if (count === 0) {
       setIsPlaying(false);
+      // Calls function saveGameResult when the game is done.
+      saveGameResult(); 
     }
   }, [count]);
 
