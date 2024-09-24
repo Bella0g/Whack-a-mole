@@ -4,7 +4,7 @@ import CountDown from "../components/CountDown";
 import Points from "../components/Points";
 import PlayButton from "../components/PlayButton";
 import Login from "../components/Login";
-import {SaveResult} from "../components/Api";
+import { SaveResult } from "../components/Api";
 
 const GamePage = () => {
   const [score, setScore] = useState(0);
@@ -12,7 +12,6 @@ const GamePage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
-
 
   // update username when submitted
   const handleSubmit = (input) => {
@@ -47,7 +46,7 @@ const GamePage = () => {
     if (count === 0) {
       setIsPlaying(false);
       // Calls function saveGameResult when the game is done.
-      saveGameResult(); 
+      saveGameResult();
     }
   }, [count]);
 
@@ -64,19 +63,30 @@ const GamePage = () => {
           <div className="text-slate-50 text-right w-3/4 py-2 lg:w-1/3">
             <h3>Logged in: {userName}</h3>
           </div>
-          <div className="grid grid-cols-3 items-center text-white text-1xl font-bold py-2 mb-6">
-            <CountDown
-              count={count}
-              setCount={setCount}
-              isPlaying={isPlaying}
-            />
 
-            <Points score={score} />
+          {/* Show Scoreboard when the game is not playing and countdown has finished */}
+          {!isPlaying && count === 0 ? (
+            <Scoreboard />
+          ) : (
+            <>
+              <div className="grid grid-cols-3 items-center text-white text-1xl font-bold py-2 mb-6">
+                <CountDown
+                  count={count}
+                  setCount={setCount}
+                  isPlaying={isPlaying}
+                />
 
-            <PlayButton startGame={startGame} isPlaying={isPlaying} />
-          </div>
+                <Points score={score} />
 
-          <GameBoard incrementScore={incrementScore} isPlaying={isPlaying} />
+                <PlayButton startGame={startGame} isPlaying={isPlaying} />
+              </div>
+
+              <GameBoard
+                incrementScore={incrementScore}
+                isPlaying={isPlaying}
+              />
+            </>
+          )}
         </>
       )}
     </div>
