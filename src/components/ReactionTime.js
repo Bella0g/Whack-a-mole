@@ -1,20 +1,9 @@
 import React from "react";
 
-export default function ReactionTime({ reactionTimes }) {
+export default function ReactionTime({ currentReactionTime }) {
   return (
     <div>
-      {reactionTimes.length > 0 && (
-        <div>
-          <h2>Reaction Times:</h2>
-          <ul>
-            {reactionTimes.map((time, i) => (
-              <li key={i}>
-                Mole {i + 1}: {time} ms
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <h3>Reaction Time: {currentReactionTime} .ms</h3>
     </div>
   );
 }

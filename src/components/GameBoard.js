@@ -4,12 +4,17 @@ import React, { useState, useEffect } from "react";
 import Mole from "./Mole";
 import ReactionTime from "./ReactionTime";
 
-const GameBoard = ({ incrementScore, isPlaying }) => {
+const GameBoard = ({
+  incrementScore,
+  isPlaying,
+  reactionTimes,
+  setReactionTimes,
+  currentReactionTime,
+  setCurrentReactionTime,
+}) => {
   const [molePositions, setMolePositions] = useState(
     Array(25).fill({ visible: false, appearanceTime: null })
   );
-
-  const [reactionTimes, setReactionTimes] = useState([]); // store reaction times
 
   const showRandomMoles = () => {
     if (!isPlaying) {
@@ -68,8 +73,10 @@ const GameBoard = ({ incrementScore, isPlaying }) => {
       // calculate individual mole reactiontime
       const moleReactionTime =
         currentTime - molePositions[index].appearanceTime;
-      // set reaction time
+      // set all reaction time
       setReactionTimes((prevTimes) => [...prevTimes, moleReactionTime]);
+      // set current reaction time
+      setCurrentReactionTime(moleReactionTime);
 
       const newMolePositions = [...molePositions];
       newMolePositions[index] = false;
@@ -79,11 +86,6 @@ const GameBoard = ({ incrementScore, isPlaying }) => {
 
   return (
     <>
-      {reactionTimes.length > 0 && (
-        <div>
-          <ReactionTime reactionTimes={reactionTimes} />
-        </div>
-      )}{" "}
       <div className="grid grid-cols-5 gap-4 w-[500px] h-[500px]">
         {molePositions.map((isVisible, index) => (
           <div

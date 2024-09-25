@@ -4,7 +4,8 @@ import CountDown from "../components/CountDown";
 import Points from "../components/Points";
 import PlayButton from "../components/PlayButton";
 import Login from "../components/Login";
-import {SaveResult} from "../components/Api";
+import { SaveResult } from "../components/Api";
+import ReactionTime from "../components/ReactionTime";
 
 const GamePage = () => {
   const [score, setScore] = useState(0);
@@ -12,7 +13,8 @@ const GamePage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
-
+  const [reactionTime, setReactionTime] = useState([]); // store all reaction times
+  const [currentReactionTime, setCurrentReactiontime] = useState([]); // store current reaction times
 
   // update username when submitted
   const handleSubmit = (input) => {
@@ -39,7 +41,8 @@ const GamePage = () => {
   // Function to save gameresult for a user and calls function SaveResult(api) to save to the database.
   const saveGameResult = async () => {
     if (userName && score > 0) {
-      await SaveResult(userName, score);
+      let bestReactionTime = Math.min(...reactionTime);
+      await SaveResult(userName, score, bestReactionTime);
     }
   };
 
@@ -47,7 +50,7 @@ const GamePage = () => {
     if (count === 0) {
       setIsPlaying(false);
       // Calls function saveGameResult when the game is done.
-      saveGameResult(); 
+      saveGameResult();
     }
   }, [count]);
 
@@ -70,13 +73,21 @@ const GamePage = () => {
               setCount={setCount}
               isPlaying={isPlaying}
             />
-
             <Points score={score} />
-
             <PlayButton startGame={startGame} isPlaying={isPlaying} />
           </div>
+          <div className="text-white text-right items-center pb-1 w-3/4 lg:w-1/3">
+            <ReactionTime currentReactionTime={currentReactionTime} />
+          </div>
 
-          <GameBoard incrementScore={incrementScore} isPlaying={isPlaying} />
+          <GameBoard
+            incrementScore={incrementScore}
+            isPlaying={isPlaying}
+            reactionTimes={reactionTime}
+            setReactionTimes={setReactionTime}
+            setCurrentReactionTime={setCurrentReactiontime}
+            currentReactionTime={currentReactionTime}
+          />
         </>
       )}
     </div>

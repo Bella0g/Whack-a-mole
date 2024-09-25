@@ -1,7 +1,7 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv =  require('dotenv');
-const cors = require('cors');
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const cors = require("cors");
 
 // fetch environment variables from .env-file
 dotenv.config();
@@ -11,47 +11,49 @@ app.use(express.json());
 app.use(cors());
 
 // Connection to MongoDB with URI from .env-file.
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log('Ansluten till MongoDB'))
-.catch(err=> console.error('Kunde inte ansluta till MongoDB', err));
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("Ansluten till MongoDB"))
+  .catch((err) => console.error("Kunde inte ansluta till MongoDB", err));
 
 // Define scheme for user.
 const userSchema = new mongoose.Schema({
-    playername: {type: String, required: true},
-    points: {type: Number, required: true },
-    //reactionTime: {type:Number, required: true}
+  playername: { type: String, required: true },
+  points: { type: Number, required: true },
+  bestReactionTime: { type: String, required: true },
 });
 
 // Creates model for user and score.
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 // Route to create a new user
-app.post('/api/users', async (req, res) =>{
-    const {playername, points} = req.body;
+app.post("/api/users", async (req, res) => {
+  const { playername, points, bestReactionTime } = req.body;
 
-    try {
-        // Create and save a new user.
-        const newUser = new User({ playername, points });
-        await newUser.save();
-        res.status(201).json({ message: 'Användare och poäng sparad', user: newUser });
-      } catch (error) {
-        res.status(500).json({ error: 'Fel vid sparning av användare' });
-      }
-    });
-    // Route to fetch all users
-    app.get('/api/users', async (req, res)=>{
-        try {
-            // Fetch all users from database.
-            const users = await User.find();
-            res.status(200).json(users);
-        }
-        catch(error) {
-        res.status(500).json({error: 'Fel vid hämtning av användare'});
-        }
-    });
+  try {
+    // Create and save a new user.
+    const newUser = new User({ playername, points, bestReactionTime });
+    await newUser.save();
+    res
+      .status(201)
+      .json({ message: "Användare och poäng sparad", user: newUser });
+  } catch (error) {
+    res.status(500).json({ error: "Fel vid sparning av användare" });
+  }
+});
+// Route to fetch all users
+app.get("/api/users", async (req, res) => {
+  try {
+    // Fetch all users from database.
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Fel vid hämtning av användare" });
+  }
+});
 
 // app.post('/api/:id/score', async (req, res) => {
-//     const { id } = req.params;  
+//     const { id } = req.params;
 //     const { points } = req.body;
 
 //     try {
@@ -71,18 +73,18 @@ app.post('/api/users', async (req, res) =>{
 //     }
 // });
 
-    // Route to fetch scores for a user
-    // app.get('/api/users/:id/scores', async (req, res)=>{
-    //     const {id} = req.params;
-    //     try{
-    //         const scores = await Score.find({userId: id});
-    //         res.status(200).json(scores);
-    //     }catch(error){
-    //         res.status(500).json({error: 'Fel vid hämtning av poäng'});
-    //     }
-    // });
- // Set port to start the server.
-     const PORT = process.env.PORT || 2000;
-        app.listen(PORT, ()=> {
-        console.log(`Servern kör på port ${PORT}`)
-   });
+// Route to fetch scores for a user
+// app.get('/api/users/:id/scores', async (req, res)=>{
+//     const {id} = req.params;
+//     try{
+//         const scores = await Score.find({userId: id});
+//         res.status(200).json(scores);
+//     }catch(error){
+//         res.status(500).json({error: 'Fel vid hämtning av poäng'});
+//     }
+// });
+// Set port to start the server.
+const PORT = process.env.PORT || 2000;
+app.listen(PORT, () => {
+  console.log(`Servern kör på port ${PORT}`);
+});
