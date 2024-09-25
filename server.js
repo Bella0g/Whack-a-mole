@@ -41,49 +41,19 @@ app.post("/api/users", async (req, res) => {
     res.status(500).json({ error: "Fel vid sparning av användare" });
   }
 });
+
 // Route to fetch all users
 app.get("/api/users", async (req, res) => {
   try {
-    // Fetch users, sort by scoreboard in descending order, limit to top 10
-    const users = await User.find().sort({ points: -1 }).limit(10);
+    const users = await User.find()
+      .sort({ points: -1 })
+      .limit(10);
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: "Fel vid hämtning av användare" });
   }
 });
 
-// app.post('/api/:id/score', async (req, res) => {
-//     const { id } = req.params;
-//     const { points } = req.body;
-
-//     try {
-//         // controll if the user exists.
-//         const user = await User.findById(id);
-//         if (!user) {
-//             return res.status(404).json({ error: 'Användare inte hittad' });
-//         }
-
-//         // Create and saves new points for the users.
-//         const newScore = new Score({ userId: id, points });
-//         await newScore.save();
-
-//         res.status(201).json({ message: 'Poäng sparad', score: newScore });
-//     } catch (error) {
-//         res.status(500).json({ error: 'Fel vid sparning av poäng' });
-//     }
-// });
-
-// Route to fetch scores for a user
-// app.get('/api/users/:id/scores', async (req, res)=>{
-//     const {id} = req.params;
-//     try{
-//         const scores = await Score.find({userId: id});
-//         res.status(200).json(scores);
-//     }catch(error){
-//         res.status(500).json({error: 'Fel vid hämtning av poäng'});
-//     }
-// });
-// Set port to start the server.
 const PORT = process.env.PORT || 2000;
 app.listen(PORT, () => {
   console.log(`Servern kör på port ${PORT}`);

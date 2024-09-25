@@ -7,7 +7,6 @@ import Login from "../components/Login";
 import { SaveResult } from "../components/Api";
 import Scoreboard from '../components/Scoreboard';
 
-
 const GamePage = () => {
   const [score, setScore] = useState(0);
   const [count, setCount] = useState(60);
