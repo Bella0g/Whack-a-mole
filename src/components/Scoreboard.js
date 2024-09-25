@@ -10,7 +10,7 @@ const Scoreboard = () => {
   useEffect(() => {
     // Get users from API
     axios
-      .get("http://localhost:5000/api/users")
+      .get("http://localhost:2000/api/users")
       .then((response) => {
         setUsers(response.data);
       })
@@ -34,11 +34,10 @@ const Scoreboard = () => {
         </thead>
         {/* Loop through each user and render a row for each */}
         <tbody>
-          {users.map((user, index) => (
+        {users.map((user, index) => (
             <tr key={user._id} className="border-b">
-              <td className="p-4">{index + 1}</td>
-              <td className="p-4">{user.playername}</td>
-              <td className="p-4">{user.scoreboard}</td>
+              <td className="p-4">{user.playername}</td> 
+              <td className="p-4">{user.points}</td> 
             </tr>
           ))}
         </tbody>
