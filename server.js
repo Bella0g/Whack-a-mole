@@ -45,7 +45,7 @@ app.post("/api/users", async (req, res) => {
 app.get("/api/users", async (req, res) => {
   try {
     // Fetch users, sort by scoreboard in descending order, limit to top 10
-    const users = await User.find().sort({ scoreboard: -1 }).limit(10);
+    const users = await User.find().sort({ points: -1 }).limit(10);
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: "Fel vid hämtning av användare" });

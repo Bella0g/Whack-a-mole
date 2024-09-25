@@ -5,6 +5,8 @@ import Points from "../components/Points";
 import PlayButton from "../components/PlayButton";
 import Login from "../components/Login";
 import { SaveResult } from "../components/Api";
+import Scoreboard from '../components/Scoreboard';
+
 
 const GamePage = () => {
   const [score, setScore] = useState(0);
