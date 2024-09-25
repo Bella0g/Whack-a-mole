@@ -4,17 +4,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Scoreboard = () => {
-  // State to hold user fetchd from API
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    // Get users from API
     axios
       .get("http://localhost:2000/api/users")
       .then((response) => {
-        setUsers(response.data);
+       // Sort users by points in descending order
+        const sortedUsers = response.data.sort((a, b) => b.points - a.points);
+        setUsers(sortedUsers);
       })
-      // If there's an error fetching the data, log the error message to the console
       .catch((error) => {
         console.error("Det gick inte att hämta användare", error);
       });
@@ -22,22 +21,21 @@ const Scoreboard = () => {
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-3xl">
-      <h2 className="text-2xl font-bold mb-4 text-blue-600">Scoreboard</h2>
-      {/* Table to display users and their scores */}
-      <table className="table-auto w-full">
+      <h2 className="text-2xl font-bold mb-4 text-blue-600">High score</h2>
+      <table className="table-auto w-full justify-center">
         <thead>
           <tr className="bg-gray-200 text-left">
-            <th className="p-4">#</th>
-            <th className="p-4">Player Name</th>
-            <th className="p-4">Points</th>
+            <th className="p-4">Place</th>
+            <th className="p-4">Player</th>
+            <th className="p-4">Score</th>
           </tr>
         </thead>
-        {/* Loop through each user and render a row for each */}
         <tbody>
-        {users.map((user, index) => (
+          {users.map((user, index) => (
             <tr key={user._id} className="border-b">
-              <td className="p-4">{user.playername}</td> 
-              <td className="p-4">{user.points}</td> 
+              <td className="p-4">{index + 1}</td>
+              <td className="p-4">{user.playername}</td>
+              <td className="p-4">{user.points}</td>
             </tr>
           ))}
         </tbody>
