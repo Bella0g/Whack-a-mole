@@ -55,7 +55,7 @@ function Login({ handleLogin, onNameSubmitted }) {
                 onSubmit={handleSubmit}
               >
                 <div className="flex flex-col my-2">
-                  <div class="relative">
+                  <div className="relative">
                     <input
                       id="floating_outlined"
                       type="text"
@@ -65,7 +65,7 @@ function Login({ handleLogin, onNameSubmitted }) {
                       placeholder=" "
                     />
                     <label
-                      for="floating_outlined"
+                      htmlFor="floating_outlined"
                       className="absolute text-sm px-1 text-slate-200 duration-300 transform -translate-y-2 scale-85 top-1 z-11 origin-[0] peer-focus:text-slate-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-0.5 peer-focus:scale-85 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/2 rtl:peer-focus:left-auto start-1"
                     >
                       Enter name
