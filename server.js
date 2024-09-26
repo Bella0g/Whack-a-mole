@@ -20,7 +20,7 @@ mongoose
 const userSchema = new mongoose.Schema({
   playername: { type: String, required: true },
   points: { type: Number, required: true },
-  bestReactionTime: { type: String, required: true },
+  bestReactionTime: { type: Number, required: true },
 });
 
 // Creates model for user and score.
@@ -45,7 +45,7 @@ app.post("/api/users", async (req, res) => {
 // Route to fetch all users
 app.get("/api/users", async (req, res) => {
   try {
-    const users = await User.find().sort({ points: -1 }).limit(10);
+    const users = await User.find().sort({ points: -1, bestReactionTime: 1 }).limit(10);
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: "Fel vid hämtning av användare" });
