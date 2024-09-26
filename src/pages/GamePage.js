@@ -14,6 +14,7 @@ const GamePage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
+  const [showScoreboard, setShowScoreboard] = useState(false);
   const [reactionTime, setReactionTime] = useState([]); // store all reaction times
   const [currentReactionTime, setCurrentReactiontime] = useState([]); // store current reaction times
 
@@ -25,6 +26,10 @@ const GamePage = () => {
   // toggle state to show game when username is submitted
   const handleLogin = () => {
     setIsLoggedIn(true);
+    setShowScoreboard(false);
+    setScore(0);
+    setCount(60);
+    setIsPlaying(false);
   };
 
   const incrementScore = () => {
@@ -37,6 +42,7 @@ const GamePage = () => {
     setScore(0);
     setCount(60);
     setIsPlaying(true);
+    setShowScoreboard(false);
   };
 
   // Function to save gameresult for a user and calls function SaveResult(api) to save to the database.
@@ -52,8 +58,27 @@ const GamePage = () => {
       setIsPlaying(false);
       // Calls function saveGameResult when the game is done.
       saveGameResult();
+      setShowScoreboard(true);
     }
   }, [count]);
+
+  const returnToLogin = () => {
+    setIsLoggedIn(false);
+    setShowScoreboard(false);
+    setCount(60);
+    setIsPlaying(false);
+    setScore(0);
+  };
+
+  useEffect(() => {
+    let timer;
+    if (showScoreboard) {
+      timer = setTimeout(() => {
+        returnToLogin();
+      }, 10000);
+    }
+    return () => clearTimeout(timer);
+  }, [showScoreboard]);
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center">
@@ -71,7 +96,7 @@ const GamePage = () => {
 
           {/* Show Scoreboard when the game is not playing and countdown has finished */}
           {!isPlaying && count === 0 ? (
-            <Scoreboard />
+            <Scoreboard returnToLogin={returnToLogin} />
           ) : (
             <>
               <div className="grid grid-cols-3 items-center text-white text-1xl font-bold py-2 mb-6">
