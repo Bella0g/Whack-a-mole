@@ -5,7 +5,8 @@ import Points from "../components/Points";
 import PlayButton from "../components/PlayButton";
 import Login from "../components/Login";
 import { SaveResult } from "../components/Api";
-import Scoreboard from '../components/Scoreboard';
+import ReactionTime from "../components/ReactionTime";
+import Scoreboard from "../components/Scoreboard";
 
 const GamePage = () => {
   const [score, setScore] = useState(0);
@@ -13,6 +14,8 @@ const GamePage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
+  const [reactionTime, setReactionTime] = useState([]); // store all reaction times
+  const [currentReactionTime, setCurrentReactiontime] = useState([]); // store current reaction times
 
   // update username when submitted
   const handleSubmit = (input) => {
@@ -39,7 +42,8 @@ const GamePage = () => {
   // Function to save gameresult for a user and calls function SaveResult(api) to save to the database.
   const saveGameResult = async () => {
     if (userName && score > 0) {
-      await SaveResult(userName, score);
+      let bestReactionTime = Math.min(...reactionTime);
+      await SaveResult(userName, score, bestReactionTime);
     }
   };
 
@@ -61,10 +65,9 @@ const GamePage = () => {
         <Login handleLogin={handleLogin} onNameSubmitted={handleSubmit} />
       ) : (
         <>
-          <div className="text-slate-50 text-center mx-auto w-3/4 py-2 lg:w-1/3">
-            <h2>Welcome {userName}!</h2>
+          <div className="text-slate-50 text-right w-3/4 py-2 lg:w-1/3">
+            <h3>Logged in: {userName}</h3>
           </div>
-
 
           {/* Show Scoreboard when the game is not playing and countdown has finished */}
           {!isPlaying && count === 0 ? (
@@ -86,6 +89,10 @@ const GamePage = () => {
               <GameBoard
                 incrementScore={incrementScore}
                 isPlaying={isPlaying}
+                reactionTimes={reactionTime}
+                setReactionTimes={setReactionTime}
+                setCurrentReactionTime={setCurrentReactiontime}
+                currentReactionTime={currentReactionTime}
               />
             </>
           )}
