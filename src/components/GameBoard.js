@@ -2,14 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import Mole from "./Mole";
-import ReactionTime from "./ReactionTime";
 
 const GameBoard = ({
   incrementScore,
   isPlaying,
-  reactionTimes,
   setReactionTimes,
-  currentReactionTime,
   setCurrentReactionTime,
 }) => {
   const [molePositions, setMolePositions] = useState(
