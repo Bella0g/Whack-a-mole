@@ -86,6 +86,10 @@ const GamePage = () => {
                 <PlayButton startGame={startGame} isPlaying={isPlaying} />
               </div>
 
+              <div className="text-white text-right items-center pb-1 w-3/4 lg:w-1/3">
+                <ReactionTime currentReactionTime={currentReactionTime} />
+              </div>
+
               <GameBoard
                 incrementScore={incrementScore}
                 isPlaying={isPlaying}
