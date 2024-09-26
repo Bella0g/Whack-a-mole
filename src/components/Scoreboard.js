@@ -11,15 +11,16 @@ const Scoreboard = ({ returnToLogin }) => {
       .get("http://localhost:2000/api/users")
       .then((response) => {
         // Sort users by points in descending order
-        const sortedUsers = [...response.data].sort((a, b) => b.points - a.points);
-        const sortedReactions =[...response.data].sort((a, b)=> a.bestReactionTime - b.bestReactionTime);
-        setUsers(sortedUsers, sortedReactions);
+        setUsers(response.data);
       })
       .catch((error) => {
         console.error("Cant fetch users", error);
       });
 
   }, []);
+
+        const sortedUsers = [...users].sort((a, b) => b.points - a.points);
+        const sortedReactions =[...users].sort((a, b)=> a.bestReactionTime - b.bestReactionTime);
 
   return (
     <div className="relative bg-white shadow-md rounded-lg p-6 w-full max-w-3xl" style={{display:'flex', justifyContent:'space-around'}}>
@@ -34,7 +35,7 @@ const Scoreboard = ({ returnToLogin }) => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
+          {sortedUsers.map((user, index) => (
             <tr key={user._id} className="border-b">
               <td className="p-4">{index + 1}</td>
               <td className="p-4">{user.playername}</td>
@@ -61,7 +62,7 @@ const Scoreboard = ({ returnToLogin }) => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
+          {sortedReactions.map((user, index) => (
             <tr key={user._id} className="border-b">
               <td className="p-4">{index + 1}</td>
               <td className="p-4">{user.playername}</td>
