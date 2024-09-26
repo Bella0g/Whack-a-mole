@@ -15,7 +15,7 @@ const Scoreboard = ({ returnToLogin }) => {
         setUsers(sortedUsers);
       })
       .catch((error) => {
-        console.error("Det gick inte att hämta användare", error);
+        console.error("Cant fetch users", error);
       });
 
   }, []);

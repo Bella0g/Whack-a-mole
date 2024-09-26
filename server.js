@@ -20,7 +20,7 @@ mongoose
 const userSchema = new mongoose.Schema({
   playername: { type: String, required: true },
   points: { type: Number, required: true },
-  //reactionTime: {type:Number, required: true}
+  bestReactionTime: { type: String, required: true },
 });
 
 // Creates model for user and score.
@@ -28,11 +28,11 @@ const User = mongoose.model("User", userSchema);
 
 // Route to create a new user
 app.post("/api/users", async (req, res) => {
-  const { playername, points } = req.body;
+  const { playername, points, bestReactionTime } = req.body;
 
   try {
     // Create and save a new user.
-    const newUser = new User({ playername, points });
+    const newUser = new User({ playername, points, bestReactionTime });
     await newUser.save();
     res
       .status(201)
@@ -45,9 +45,7 @@ app.post("/api/users", async (req, res) => {
 // Route to fetch all users
 app.get("/api/users", async (req, res) => {
   try {
-    const users = await User.find()
-      .sort({ points: -1 })
-      .limit(10);
+    const users = await User.find().sort({ points: -1 }).limit(10);
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: "Fel vid hämtning av användare" });

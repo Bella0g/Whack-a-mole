@@ -5,7 +5,8 @@ import Points from "../components/Points";
 import PlayButton from "../components/PlayButton";
 import Login from "../components/Login";
 import { SaveResult } from "../components/Api";
-import Scoreboard from '../components/Scoreboard';
+import ReactionTime from "../components/ReactionTime";
+import Scoreboard from "../components/Scoreboard";
 
 const GamePage = () => {
   const [score, setScore] = useState(0);
@@ -14,6 +15,8 @@ const GamePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
   const [showScoreboard, setShowScoreboard] = useState(false);
+  const [reactionTime, setReactionTime] = useState([]); // store all reaction times
+  const [currentReactionTime, setCurrentReactiontime] = useState([]); // store current reaction times
 
   // update username when submitted
   const handleSubmit = (input) => {
@@ -45,7 +48,8 @@ const GamePage = () => {
   // Function to save gameresult for a user and calls function SaveResult(api) to save to the database.
   const saveGameResult = async () => {
     if (userName && score > 0) {
-      await SaveResult(userName, score);
+      let bestReactionTime = Math.min(...reactionTime);
+      await SaveResult(userName, score, bestReactionTime);
     }
   };
 
@@ -107,9 +111,17 @@ const GamePage = () => {
                 <PlayButton startGame={startGame} isPlaying={isPlaying} />
               </div>
 
+              <div className="text-white text-right items-center pb-1 w-3/4 lg:w-1/3">
+                <ReactionTime currentReactionTime={currentReactionTime} />
+              </div>
+
               <GameBoard
                 incrementScore={incrementScore}
                 isPlaying={isPlaying}
+                reactionTimes={reactionTime}
+                setReactionTimes={setReactionTime}
+                setCurrentReactionTime={setCurrentReactiontime}
+                currentReactionTime={currentReactionTime}
               />
             </>
           )}
