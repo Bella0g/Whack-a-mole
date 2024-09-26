@@ -3,24 +3,31 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Scoreboard = () => {
+const Scoreboard = ({ returnToLogin }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     axios
       .get("http://localhost:2000/api/users")
       .then((response) => {
-       // Sort users by points in descending order
+        // Sort users by points in descending order
         const sortedUsers = response.data.sort((a, b) => b.points - a.points);
         setUsers(sortedUsers);
       })
       .catch((error) => {
         console.error("Det gick inte att hämta användare", error);
       });
+
   }, []);
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-3xl">
+    <div className="relative bg-white shadow-md rounded-lg p-6 w-full max-w-3xl">
+      <button
+        className="absolute top-4 right-4 bg-purple-700 text-white rounded-full px-3 py-1 hover:bg-red-700"
+        onClick={returnToLogin}
+      >
+        X
+      </button>
       <h2 className="text-2xl font-bold mb-4 text-blue-600">High score</h2>
       <table className="table-auto w-full justify-center">
         <thead>
