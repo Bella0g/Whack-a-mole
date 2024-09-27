@@ -2,8 +2,9 @@
 
 This is a web-based **Whack-a-Mole** game built using React for the frontend and MongoDB for backend data storage. The game features a fun and interactive user experience, including score tracking and customizable game settings.
 
-![Alt text](/assets/)
-![Alt text](/assets/)
+![Alt text](/assets/login.png)
+![Alt text](/assets/game.png)
+![Alt text](/assets/score.png)
 
 ## Features
 - Interactive "Whack-a-Mole" gameplay.
@@ -13,7 +14,6 @@ This is a web-based **Whack-a-Mole** game built using React for the frontend and
 - User-friendly minimal design.
 - Real-time score updates using MongoDB via API requests.
 - Cross-environment Axios integration for communication between frontend and backend.
-- Light and dark mode for customized user experience.
 
 ## Technologies Used
 - **React**: Frontend framework for building UI components.
@@ -31,7 +31,6 @@ Ensure that the following software is installed on your system:
 - **MongoDB**: You can install MongoDB from [mongodb.com](https://www.mongodb.com/try/download/community).
 - **MongoDB Compass**: Download from [MongoDB Compass](https://www.mongodb.com/products/compass) to manage your database.
 
-
 ### Installation
 1. Clone the repository to your local machine using:
     ```bash
@@ -48,14 +47,19 @@ Ensure that the following software is installed on your system:
     npm install
     ```
 
-4. Set up MongoDB:
+4. Install additional dependencies for development and the project:
+    ```bash
+    npm install cross-env --save-dev
+    npm install cors express mongoose dotenv
+    ```
+
+5. Set up MongoDB:
    - Start your MongoDB server.
    - Use **MongoDB Compass** to create a new database and collection for storing game scores.
    - Update the MongoDB connection URI in your backend configuration file (`.env` or `config.js`), replacing it with your MongoDB server's connection string.
 
 ### Cross-Environment Configuration with Axios
 The app uses **Axios** to handle HTTP requests between the frontend (React) and backend (Node.js/Express). Make sure your backend server is configured to accept requests from your frontend environment.
-
 
 ### Usage
 1. Start the development server:
@@ -80,4 +84,3 @@ The app uses **Axios** to handle HTTP requests between the frontend (React) and 
 - Leaderboard to display high scores.
 - User authentication to save personal scores.
 - Power-ups and game difficulty settings.
-
