@@ -2,9 +2,9 @@
 
 This is a web-based **Whack-a-Mole** game built using React for the frontend and MongoDB for backend data storage. The game features a fun and interactive user experience, including score tracking and customizable game settings.
 
-![Alt text](/assets/login.png)
-![Alt text](/assets/game.png)
-![Alt text](/assets/score.png)
+![Alt text](./src/assets/login.png)
+![Alt text](./src/assets/game.png)
+![Alt text](./src/assets/score.png)
 
 ## Features
 - Interactive "Whack-a-Mole" gameplay.
